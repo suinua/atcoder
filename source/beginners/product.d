@@ -1,9 +1,9 @@
 module beginners.product;
 
-import std.stdio, std.array, std.conv;
+import std.stdio, std.array, std.conv, std.algorithm;
 
 void main()
 {
-    auto r = readln.split;
-    writeln(["Even", "Odd"][(r[0].to!int * r[1].to!int % 2) == 0 ? 0 : 1]);
+    int[] r = readln.split.map!(n => n.to!int).array;
+    writeln(["Even", "Odd"][(r[0] * r[1] % 2) == 0 ? 0 : 1]);
 }
