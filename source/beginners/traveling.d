@@ -1,6 +1,6 @@
 module beginners.traveling;
 
-import std.stdio, std.array, std.conv, std.range;
+import std.stdio, std.array, std.conv, std.math;
 
 void main()
 {
@@ -39,7 +39,7 @@ void main()
             }
         }
         else if (index != 0)
-            if (!f(plans[index - 1], plans[index]))
+            if (f(plans[index - 1], plans[index]))
             {
                 isAnswerd = true;
                 writeln("No");
@@ -52,27 +52,10 @@ void main()
 
 bool f(int[] plan1, int[] plan2)
 {
-    int time1 = plan1[0];
-    int time2 = plan2[0];
+    int timeLag = abs(plan1[0] - plan2[0]);
+    int distance = abs(plan1[1] - plan2[1]) + abs(plan1[2] - plan2[2]);
 
-    int x1 = plan1[1];
-    int x2 = plan2[1];
-
-    int y1 = plan1[2];
-    int y2 = plan2[2];
-
-    int timeLag = time1 >= time2 ? time1 - time2 : time2 - time1;
-    int distanceX = x1 >= x2 ? x1 - x2 : x2 - x1;
-    int distanceY = y1 >= y2 ? y1 - y2 : y2 - y1;
-
-    int distance = distanceX + distanceY;
-
-    if (timeLag < distance)
-        return false;
-    else if (timeLag % 2 == 0 && distance % 2 != 0)
-        return false;
-    else if (timeLag % 2 != 0 && distance % 2 == 0)
-        return false;
-
-    return true;
+    if (timeLag < distance || (timeLag + distance) % 2)//95 0
+        return true;
+    return false;
 }
